@@ -1,0 +1,16 @@
+# constants.py
+import pygame
+
+WINDOW_SIZE = 800
+BOARD_SIZE = 5
+SQUARE_SIZE = WINDOW_SIZE // (BOARD_SIZE + 2)
+PIECE_RADIUS = SQUARE_SIZE // 2 - 10
+
+# Cores
+BLACK = (0, 0, 0)
+WHITE = (255, 255, 255)
+RED = (255, 0, 0)
+GREEN = (0, 255, 0)
+YELLOW = (255, 255, 0)
+BOARD_COLOR = (240, 217, 181)
+HIGHLIGHT_COLOR = (186, 202, 68)

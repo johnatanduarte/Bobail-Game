@@ -1,0 +1,85 @@
+@startuml Bobail Game
+/'biblioteca plantuml'/
+/' para mostrar a imagem --> Alt + d'/
+
+skinparam classAttributeIconSize 0
+skinparam style strictuml
+
+class Game {
+    - screen
+    - clock
+    - board: Board
+    - selected_piece: Piece
+    - valid_moves: List
+    - game_over: bool
+    - game_state: GameState
+    - first_turn: bool
+    + __init__()
+    + get_current_player(): str
+    + get_current_action(): str
+    + run()
+    + handle_events()
+    + handle_click(pos)
+    + draw()
+}
+
+class Board {
+    - board: List[List[Piece]]
+    - selected_piece: Piece
+    - valid_moves: List
+    + __init__()
+    + setup_board()
+    + get_piece(row, col): Piece
+    + move_piece(piece, new_row, new_col)
+    + get_valid_moves(piece): List
+    + is_bobail_surrounded(): bool
+}
+
+class Piece {
+    - piece_type: PieceType
+    - row: int
+    - col: int
+    + __init__(piece_type, row, col)
+    + move(row, col)
+    + get_color()
+}
+
+enum PieceType {
+    EMPTY
+    RED
+    GREEN
+    BOBAIL
+}
+
+enum GameState {
+    RED_MOVE
+    GREEN_BOBAIL
+    GREEN_MOVE
+    RED_BOBAIL
+}
+
+class Constants << (S,#FF7700) static >> {
+    + {static} WINDOW_SIZE: int
+    + {static} BOARD_SIZE: int
+    + {static} SQUARE_SIZE: int
+    + {static} PIECE_RADIUS: int
+    + {static} BLACK: tuple
+    + {static} WHITE: tuple
+    + {static} RED: tuple
+    + {static} GREEN: tuple
+    + {static} YELLOW: tuple
+    + {static} BOARD_COLOR: tuple
+    + {static} HIGHLIGHT_COLOR: tuple
+}
+
+Game *-- Board : contains
+Game --> GameState : uses
+Game --> PieceType : uses
+Board o-- "many" Piece : contains
+Piece --> PieceType : has
+Game ..> Constants : uses
+Board ..> Constants : uses
+Piece ..> Constants : uses
+
+@enduml
+
