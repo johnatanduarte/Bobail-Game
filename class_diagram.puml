@@ -1,85 +1,84 @@
-@startuml Bobail Game
+@startuml Jogo Bobail
 /'biblioteca plantuml'/
 /' para mostrar a imagem --> Alt + d'/
 
 skinparam classAttributeIconSize 0
 skinparam style strictuml
 
-class Game {
-    - screen
-    - clock
-    - board: Board
-    - selected_piece: Piece
-    - valid_moves: List
-    - game_over: bool
-    - game_state: GameState
-    - first_turn: bool
+class Jogo {
+    - tela
+    - relogio
+    - tabuleiro: Tabuleiro
+    - peca_selecionada: Peca
+    - movimentos_validos: Lista
+    - jogo_finalizado: bool
+    - estado_jogo: EstadoJogo
+    - primeiro_turno: bool
     + __init__()
-    + get_current_player(): str
-    + get_current_action(): str
-    + run()
-    + handle_events()
-    + handle_click(pos)
-    + draw()
+    + obter_jogador_atual(): str
+    + obter_acao_atual(): str
+    + executar()
+    + tratar_eventos()
+    + tratar_clique(pos)
+    + desenhar()
 }
 
-class Board {
-    - board: List[List[Piece]]
-    - selected_piece: Piece
-    - valid_moves: List
+class Tabuleiro {
+    - tabuleiro: Lista[Lista[Peca]]
+    - peca_selecionada: Peca
+    - movimentos_validos: Lista
     + __init__()
-    + setup_board()
-    + get_piece(row, col): Piece
-    + move_piece(piece, new_row, new_col)
-    + get_valid_moves(piece): List
-    + is_bobail_surrounded(): bool
+    + configurar_tabuleiro()
+    + obter_peca(linha, coluna): Peca
+    + mover_peca(peca, nova_linha, nova_coluna)
+    + obter_movimentos_validos(peca): Lista
+    + esta_bobail_cercado(): bool
 }
 
-class Piece {
-    - piece_type: PieceType
-    - row: int
-    - col: int
-    + __init__(piece_type, row, col)
-    + move(row, col)
-    + get_color()
+class Peca {
+    - tipo_peca: TipoPeca
+    - linha: int
+    - coluna: int
+    + __init__(tipo_peca, linha, coluna)
+    + mover(linha, coluna)
+    + obter_cor()
 }
 
-enum PieceType {
-    EMPTY
-    RED
-    GREEN
+enum TipoPeca {
+    VAZIO
+    VERMELHA
+    VERDE
     BOBAIL
 }
 
-enum GameState {
-    RED_MOVE
-    GREEN_BOBAIL
-    GREEN_MOVE
-    RED_BOBAIL
+enum EstadoJogo {
+    MOVIMENTO_VERMELHA
+    MOVIMENTO_BOBAIL_VERDE
+    MOVIMENTO_VERDE
+    MOVIMENTO_BOBAIL_VERMELHA
 }
 
-class Constants << (S,#FF7700) static >> {
-    + {static} WINDOW_SIZE: int
-    + {static} BOARD_SIZE: int
-    + {static} SQUARE_SIZE: int
-    + {static} PIECE_RADIUS: int
-    + {static} BLACK: tuple
-    + {static} WHITE: tuple
-    + {static} RED: tuple
-    + {static} GREEN: tuple
-    + {static} YELLOW: tuple
-    + {static} BOARD_COLOR: tuple
-    + {static} HIGHLIGHT_COLOR: tuple
+class Constantes << (S,#FF7700) static >> {
+    + {static} TAMANHO_JANELA: int
+    + {static} TAMANHO_TABULEIRO: int
+    + {static} TAMANHO_QUADRADO: int
+    + {static} RAIO_PECA: int
+    + {static} PRETO: tuple
+    + {static} BRANCO: tuple
+    + {static} VERMELHO: tuple
+    + {static} VERDE: tuple
+    + {static} AMARELO: tuple
+    + {static} COR_TABULEIRO: tuple
+    + {static} COR_DESTAQUE: tuple
 }
 
-Game *-- Board : contains
-Game --> GameState : uses
-Game --> PieceType : uses
-Board o-- "many" Piece : contains
-Piece --> PieceType : has
-Game ..> Constants : uses
-Board ..> Constants : uses
-Piece ..> Constants : uses
+Jogo *-- Tabuleiro : contém
+Jogo --> EstadoJogo : usa
+Jogo --> TipoPeca : usa
+Tabuleiro o-- "muitas" Peca : contém
+Peca --> TipoPeca : tem
+Jogo ..> Constantes : usa
+Tabuleiro ..> Constantes : usa
+Peca ..> Constantes : usa
 
 @enduml
-
