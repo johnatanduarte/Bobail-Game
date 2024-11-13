@@ -1,11 +1,11 @@
 # Importa a classe Game do arquivo game.py
-from game import Game
+from jogo import Jogo
 
 # Garante que o código dentro desse bloco seja executado
 # somente quando main.py é executado diretamente.
 if __name__ == "__main__":
     # Cria uma instância do jogo
-    game = Game()
+    jogo = Jogo()
     
     # Inicia o loop principal do jogo
-    game.run()
+    jogo.executar()
